@@ -1,6 +1,10 @@
 <template>
   <div class="container">
-    <h1 class="text-center">Vue3</h1>
+    <h1>Vue3</h1>
+    <div>
+      <p>{{ message.toUpperCase() }}<span class="mx-1 bg-info">【{{ new Date().toLocaleString() }}】</span></p>
+      <button @click='stop = true'>Stop</button>
+    </div>
   </div>
 </template>
 
@@ -13,8 +17,26 @@
     components: {
 
     },
+    data: () => ({
+      message : 'Hello Vue!',
+      count   : 0,
+      stop    : false,
+    }),
     computed: {},
-    methods: {},
+    methods: {
+    },
+    mounted() {
+      let countUp = setInterval(() => {
+        this.count++;
+        this.message = 'Count: ' + this.count;
+        if(this.stop) clearInterval(countUp);
+        if(this.count > 10) {
+          clearInterval(countUp);
+          this.message = 'Hello Vue!';
+        }
+      }, 1000)
+
+    }
   }
 </script>
 
